@@ -1,14 +1,33 @@
-import Image from "next/image"
-import { HiMenuAlt1 } from "react-icons/hi";
+ 
+import { IoHomeOutline } from "react-icons/io5";
+import { IoGameControllerOutline } from "react-icons/io5";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { GoGraph } from "react-icons/go";
+
 
  
 function Navbar() {
   return (
-    <div className="bg-black h-16 flex justify-between items-center px-2 py-1">
-      <div className="text-4xl hover:scale-105 transition hover:text-gray-400"><HiMenuAlt1 />
+    <div className="bg-black h-16 flex items-center justify-center ">
+      <div className="text-3xl  flex  justify-between items-center px-4 py-2 gap-8">
 
+       <div>
+       <IoHomeOutline />
+        </div>
+        <div>
+
+       <IoGameControllerOutline />
+        </div>
+        <div>
+        <MdOutlineShoppingCart />
+
+        </div>
+        <div>
+        <GoGraph />
+
+        </div>
       </div>
-      <Image src={"/logo.png"} alt="logo" width={40} height={40}/>
+
     </div>
      
   )
