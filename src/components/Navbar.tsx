@@ -20,7 +20,7 @@ function Navbar() {
           </div>
         </Link>
 
-        <Link href="/store">
+        <Link href="/tournaments">
           <div className="hover:text-highlight transition active:text-white">
             <MdOutlineShoppingCart />
           </div>
