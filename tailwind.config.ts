@@ -14,6 +14,11 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       keyframes: {
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         "shine-pulse": {
           "0%": {
             "background-position": "0% 0%",
@@ -36,6 +41,7 @@ const config: Config = {
       },
       animation: {
         shimmer: "shimmer 8s infinite",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
 
       colors: {

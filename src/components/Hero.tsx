@@ -1,11 +1,9 @@
 import Button from "./Button";
 import AnimatedShinyText from "./ui/AnimatedShine";
-import { VelocityScroll } from "./ui/VelocityScroll";
-import WordPullUp from "./ui/WordPullUp";
 
 export function Hero() {
   return (
-    <div className="flex flex-col items-center  gap-6 px-3 mt-12">
+    <div className="flex flex-col items-center  gap-6 px-3 mt-12 ">
       <div className="flex flex-col items-center w-[50vh] ">
         <AnimatedShinyText>
           <span className="text-xl"> ✨ Welcome to NxS Esports! </span>
@@ -21,7 +19,12 @@ export function Hero() {
       </p>
       <div className="flex justify-center gap-4">
         <Button text="Get Started" />
-        <Button text="Leaderboard" />
+        <Button
+          text="Leaderboard"
+          className="bg-white text-slate-900 hover:bg-gray-300"
+          hover="grey"
+          hovertext="black"
+        />
       </div>
       <hr className="w-[90%] border-gray-500 text my-12" />
     </div>
