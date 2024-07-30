@@ -3,7 +3,6 @@ import AnimatedShinyText from "./ui/AnimatedShine";
 import AnimatedGridPattern from "./ui/AnimatedGrid";
 import Link from "next/link";
 import WordPullUp from "./ui/WordPullUp";
-import LetterPullup from "./ui/LetterPullup";
 
 export function Hero() {
   return (
@@ -17,7 +16,7 @@ export function Hero() {
         className="text-4xl lg:text-5xl font-extrabold text-center py-4"
         words=" Where Legends Battle and Heroes Emerge."
       />
-      <p className="text-center w-[60vh] text-gray-300 m-auto lg:text-xl py-4">
+      <p className="text-center md:w-[60vh] text-gray-300 m-auto lg:text-xl py-4">
         Dive into the thrilling world of
         <b className="text-highlight"> BGMI </b> tournaments with NxS Esports.
         Join us to participate in exhilarating tournaments, win exciting prizes.
