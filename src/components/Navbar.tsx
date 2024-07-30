@@ -15,7 +15,7 @@ function Navbar() {
         </Link>
 
         <Link href="/gaming">
-          <div className="hover:text-highlight transition active:text-white">
+          <div className=" transition text-highlight">
             <IoGameControllerOutline />
           </div>
         </Link>

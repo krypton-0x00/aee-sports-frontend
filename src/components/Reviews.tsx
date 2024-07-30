@@ -5,10 +5,10 @@ interface testimonialTypes {
   title: string;
 }
 const testimonials: testimonialTypes[] = [
-  { quote: "mazedar", name: "akash", title: "me hu akash" },
-  { quote: "bhut badhiya", name: "insane", title: "me hu insane" },
-  { quote: "are bhai mza aa gya", name: "marco", title: "me hu marco" },
-  { quote: "are bhai kya baat h ", name: "krypton", title: "me hu krypton" },
+  { quote: "Mazedar", name: "akash", title: "me hu akash" },
+  { quote: "Bhut badhiya", name: "insane", title: "me hu insane" },
+  { quote: "Are bhai mza aa gya", name: "marco", title: "me hu marco" },
+  { quote: "Are bhai kya baat h ", name: "krypton", title: "me hu krypton" },
 ];
 function Reviews() {
   return (

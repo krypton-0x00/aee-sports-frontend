@@ -53,7 +53,7 @@ const config: Config = {
 
       colors: {
         background: "#0c1010",
-        textColor: "#e8e8e0",
+        textColor: "#E2DFD2",
         highlight: "#F35B19",
       },
     },
