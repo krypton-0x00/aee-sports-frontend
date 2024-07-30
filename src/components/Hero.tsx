@@ -1,21 +1,29 @@
+import Button from "./Button";
+import AnimatedShinyText from "./ui/AnimatedShine";
+import { VelocityScroll } from "./ui/VelocityScroll";
 import WordPullUp from "./ui/WordPullUp";
 
 export function Hero() {
   return (
-    <div>
-      <div className="flex flex-col items-center w-[50vh] m-auto mt-40 mb-10">
-        <h1 className="text-2xl font-bold"> Welcome to NxS Esports! </h1>
+    <div className="flex flex-col items-center  gap-6 px-3 mt-12">
+      <div className="flex flex-col items-center w-[50vh] ">
+        <AnimatedShinyText>
+          <span className="text-xl"> ✨ Welcome to NxS Esports! </span>
+        </AnimatedShinyText>
       </div>
-      <WordPullUp words={"Where Legends Battle and Heroes Emerge"}></WordPullUp>
-      <p className="text-center w-[50vh] m-auto">
+      <h1 className="text-4xl lg:text-5xl font-extrabold text-center ">
+        Where Legends Battle and Heroes Emerge.
+      </h1>
+      <p className="text-center w-[50vh] text-gray-300 m-auto lg:text-xl">
         Dive into the thrilling world of BGMI (Battlegrounds Mobile India)
-        tournaments with NxS Esports. We bring together the best gamers from
-        around the globe to compete, showcase their skills, and rise to the top.
-        Whether you're a seasoned pro or a passionate newcomer, our platform
-        offers the ultimate competitive experience. Join us to participate in
-        exhilarating tournaments, win exciting prizes, and become a part of our
-        ever-growing community of esports enthusiasts.
+        tournaments with NxS Esports. Join us to participate in exhilarating
+        tournaments, win exciting prizes.
       </p>
+      <div className="flex justify-center gap-4">
+        <Button text="Get Started" />
+        <Button text="Leaderboard" />
+      </div>
+      <hr className="w-[90%] border-gray-500 text my-12" />
     </div>
   );
 }

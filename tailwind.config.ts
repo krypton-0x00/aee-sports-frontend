@@ -25,7 +25,19 @@ const config: Config = {
             "background-position": "0% 0%",
           },
         },
+        shimmer: {
+          "0%, 90%, 100%": {
+            "background-position": "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            "background-position": "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
       },
+      animation: {
+        shimmer: "shimmer 8s infinite",
+      },
+
       colors: {
         background: "#0c1010",
         textColor: "#e8e8e0",
