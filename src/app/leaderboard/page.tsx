@@ -1,42 +1,45 @@
-import SparklesText from '@/components/ui/Sparkles'
+import Heading from "@/components/Table/Heading";
+import Row from "@/components/Table/Row";
+import GradualSpacing from "@/components/ui/GradualSpacing";
+import SparklesText from "@/components/ui/Sparkles";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/Table'
-
-function Leaderboard () {
+function Leaderboard() {
   return (
-    <div className='flex  justify-center flex-col items-center'>
-      <SparklesText text='Leaderboard' className='text-4xl py-4' />
-      <Table className=''>
-        <TableCaption>A list of your recent invoices.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className='w-[100px]'>Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className='text-right'>Amount</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className='font-medium'>INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className='text-right'>$250.00</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+    <div className="relative flex  justify-center flex-col items-center">
+      <SparklesText text="Leaderboard" className="text-4xl py-4" />
+      <GradualSpacing text="NxS Weekly War Season 19" />
+      <div className="  flex flex-col  items-center w-[90%]">
+        <Heading />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+      </div>
+      <GradualSpacing text="NxS Weekly War Season 19" className="mt-12" />
+
+      <div className="flex flex-col  items-center w-[90%]">
+        <Heading />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+        <Row />
+      </div>
     </div>
-  )
+  );
 }
 
-export default Leaderboard
+export default Leaderboard;
