@@ -15,7 +15,7 @@ function PricingCard({ plan, price, discription, points }: PricingCardProps) {
 
       <h1 className=" px-3 py-1 rounded-md ">{plan}</h1>
 
-      <h1 className="text-3xl font-bold">{`$${price}/week`}</h1>
+      <h1 className="text-3xl font-bold">{`₹${price}/week`}</h1>
       <p>{discription}</p>
       <ul>
         {points.map((point, index) => (

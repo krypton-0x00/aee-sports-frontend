@@ -26,7 +26,7 @@ function Tournaments() {
         />
         <PricingCard
           plan="Premium"
-          price={1.3}
+          price={150}
           discription="Perfect for those who want a to win prizes."
           points={["12 matches per week.", "4 Maps.", "2 Matches per day."]}
         />

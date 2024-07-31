@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 
 interface ButtonProps {
-  text: string
-  className?: string
-  hover?: string
-  hovertext?: string
+  text: string;
+  className?: string;
+  hover?: string;
+  hovertext?: string;
 }
 
-function Button ({ text, className, hover, hovertext }: ButtonProps) {
+function Button({ text, className, hover, hovertext }: ButtonProps) {
   return (
     <div>
       <button
@@ -21,7 +21,7 @@ function Button ({ text, className, hover, hovertext }: ButtonProps) {
         {text}
       </button>
     </div>
-  )
+  );
 }
 
-export default Button
+export default Button;
