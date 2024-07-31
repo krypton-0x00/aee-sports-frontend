@@ -1,5 +1,5 @@
 import { IoHomeOutline } from "react-icons/io5";
-import { IoGameControllerOutline } from "react-icons/io5";
+import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
 import Link from "next/link";
@@ -14,9 +14,9 @@ function Navbar() {
           </div>
         </Link>
 
-        <Link href="/gaming">
+        <Link href="/ranking">
           <div className=" transition text-highlight">
-            <IoGameControllerOutline />
+            <FaRankingStar />
           </div>
         </Link>
 

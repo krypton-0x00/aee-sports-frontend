@@ -1,5 +1,5 @@
 import React from "react";
-import { BorderBeam } from "./BorderBeam";
+import { BorderBeam } from "./ui/BorderBeam";
 
 interface PricingCardProps {
   plan: string;
