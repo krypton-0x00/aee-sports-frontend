@@ -5,7 +5,7 @@ interface DropdownProps {
   className?: string;
 }
 
-const Dropdown: React.FC = ({ className }: DropdownProps) => {
+const Dropdown: React.FC<DropdownProps> = ({ className }) => {
   const [season, setSeason] = useState<string>("");
   const [day, setDay] = useState<string>("");
 
