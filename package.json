@@ -13,6 +13,7 @@
     "@nextui-org/system": "^2.2.5",
     "@nextui-org/theme": "^2.2.9",
     "@radix-ui/themes": "^3.1.1",
+    "antd": "^5.19.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.19",
     "next": "14.2.5",
