@@ -1,20 +1,49 @@
 import React from "react";
 import { IoHomeOutline } from "react-icons/io5";
-import { MdOutlineScoreboard, MdPayment } from "react-icons/md";
+import { MdOutlineCreate } from "react-icons/md";
 import Link from "next/link";
+import { TbTournament } from "react-icons/tb";
+import { FaDoorOpen } from "react-icons/fa6";
+import { CiSettings } from "react-icons/ci";
 function SideBar() {
   return (
     <>
-      <hr />
-      <div className="border-r border-white w-[3rem] h-screen flex flex-col items-center gap-3">
-        <Link href={"/dashboard"}>
-          <IoHomeOutline className="mt-4 text-2xl hover:text-highlight" />
+      <hr className="border-white" />
+      <div className="border-r border-white h-screen flex flex-col gap-5">
+        <Link
+          href={"/dashboard"}
+          className="flex items-center mx-2 mt-4 gap-2 hover:text-highlight"
+        >
+          <IoHomeOutline className=" text-2xl hover:text-highlight" />
+          <div>Home</div>
         </Link>
-        <Link href={"/dashboard/scoreboard"}>
-          <MdOutlineScoreboard className="mt-2 text-2xl hover:text-highlight" />
+        <Link
+          className="flex items-center mx-2  mt-2 gap-2 hover:text-highlight"
+          href={"/dashboard/create"}
+        >
+          <MdOutlineCreate className=" text-2xl hover:text-highlight" />
+          Create
         </Link>
-        <Link href={"/dashboard/payments"}>
-          <MdPayment className="mt-2 text-2xl hover:text-highlight" />
+        <Link
+          className="flex items-center mx-2 mt-2 gap-2 hover:text-highlight"
+          href={"/dashboard/tournament"}
+        >
+          <TbTournament className=" text-2xl hover:text-highlight" />
+          Tournaments
+        </Link>
+        <Link
+          className="flex items-center mx-2 mt-2 gap-2 hover:text-highlight"
+          href={"/dashboard/tournament/ongoing"}
+        >
+          <FaDoorOpen className=" text-2xl hover:text-highlight" />
+          Ongoing <br /> tournaments
+        </Link>
+        <Link
+          className="flex items-center mx-2 mt-2 gap-2 hover:text-highlight"
+          href={"/dashboard/settings"}
+        >
+          <CiSettings className="text-2xl hover:text-highlight" />
+          Settings
         </Link>
       </div>
     </>
