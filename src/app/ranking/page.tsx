@@ -21,7 +21,7 @@ function Ranking() {
             />
 
             <div>
-              <NumberTicker value={15} className="font-bold text-4xl"/>
+              <NumberTicker value={15} className="font-bold text-4xl" />
               <h1 className="text-sm">Kills</h1>
             </div>
           </div>

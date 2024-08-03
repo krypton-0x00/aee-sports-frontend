@@ -1,5 +1,6 @@
 import React from "react";
 import { BorderBeam } from "./ui/BorderBeam";
+import Link from "next/link";
 
 interface PricingCardProps {
   plan: string;
@@ -25,11 +26,13 @@ function PricingCard({ plan, price, discription, points }: PricingCardProps) {
         ))}
       </ul>
 
-      <button className="bg-gradient-to-r from-orange-500 to-purple-500 text-white font-normal rounded  p-[2px]">
-        <span className="flex w-full bg-black text-white rounded p-1">
-          Register Now
-        </span>
-      </button>
+      <Link href={"/register"}>
+        <button className="bg-gradient-to-r from-orange-500 to-purple-500 text-white font-normal rounded  p-[2px]">
+          <span className="flex w-full bg-black text-white rounded p-1">
+            Register Now
+          </span>
+        </button>
+      </Link>
     </div>
   );
 }

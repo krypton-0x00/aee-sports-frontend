@@ -5,10 +5,23 @@ interface testimonialTypes {
   title: string;
 }
 const testimonials: testimonialTypes[] = [
-  { quote: "Mazedar", name: "akash", title: "me hu akash" },
-  { quote: "Bhut badhiya", name: "insane", title: "me hu insane" },
-  { quote: "Are bhai mza aa gya", name: "marco", title: "me hu marco" },
-  { quote: "Are bhai kya baat h ", name: "krypton", title: "me hu krypton" },
+  {
+    quote:
+      "Ary bhai yeh kch alg he lag raha hai, ap smj rahai ho na ma ka keh raha hu.",
+    name: "akash",
+    title: "",
+  },
+  {
+    quote: "Bhai Mko yeh batov kl kis na meri bezti ki thi.",
+    name: "insane",
+    title: "me hu insane",
+  },
+  {
+    quote: "Krypton bhai yeh dekho na bhasika ma error aa raha ",
+    name: "marco",
+    title: "me hu marco",
+  },
+  { quote: "Arya Bhai Sun Na ", name: "krypton", title: "me hu krypton" },
 ];
 function Reviews() {
   return (
