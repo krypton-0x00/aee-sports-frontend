@@ -3,8 +3,8 @@ import React from "react";
 
 function page() {
   return (
-    <div className="flex flex-col items-center px-5 justify-center overflow-x-hidden">
-      <div className="flex flex-col items-center gap-12 py-8">
+    <div className="flex flex-col items-center justify-center m-auto ">
+      <div className="py-8">
         <div className="relative w-36 h-36">
           <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
             <span className="text-gray-500">Upload</span>
@@ -39,7 +39,7 @@ function page() {
             D1Name="Visibility"
             D2Name="Mode"
             D1Items={["HIDDEN", "VISIBILITY"]}
-            D2Items={["SOLO", "DUO", "SQUARD"]}
+            D2Items={["SOLO", "DUO", "SQUAD"]}
           />
         </div>
       </div>

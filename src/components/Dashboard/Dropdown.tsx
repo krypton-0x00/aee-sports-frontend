@@ -29,8 +29,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className={cn("w-screen flex justify-center", className)}>
-      <div className={"flex gap-4 w-full  max-w-96"}>
+    <div className={cn("flex justify-center", className)}>
+      <div className={"flex gap-4 w-full"}>
         <select
           value={D1}
           onChange={handleD1Change}
