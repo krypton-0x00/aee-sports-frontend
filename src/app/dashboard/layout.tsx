@@ -1,5 +1,5 @@
 // import SideBar from "@/components/Dashboard/SideBar";
-import MuiSideBar from "@/components/Dashboard/MuiSideBar"
+import MuiSideBar from "@/components/Dashboard/AntSideBar"
 
 export default function RootLayout({
   children,

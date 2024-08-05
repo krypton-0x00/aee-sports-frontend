@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./CustomButton";
 import AnimatedShinyText from "./ui/AnimatedShine";
 import AnimatedGridPattern from "./ui/AnimatedGrid";
 import Link from "next/link";
