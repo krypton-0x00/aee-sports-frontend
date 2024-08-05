@@ -9,11 +9,17 @@ import { TbTournament } from "react-icons/tb";
 import { FaDoorOpen } from "react-icons/fa6";
 import { CiSettings } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
-
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 const MuiSideBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
 
+  const router = usePathname();
+  console.log(router);
+  // if (!router.isReady) return null; 
+  // Wait for the router to be ready
   const showDrawer = () => {
     setOpen(true);
   };
@@ -22,12 +28,12 @@ const MuiSideBar: React.FC = () => {
     setOpen(false);
   };
 
-  const onChange = (e: RadioChangeEvent) => {
-    setPlacement(e.target.value);
-  };
+
+
 
   return (
-    <>
+    <div className={`absolute h-16 ${router === "/dashboard" || router.startsWith("/dashboard/") ? "flex" : "hidden"}`}>
+
       <button onClick={showDrawer} className="bg-black p-2 mx-2 text-3xl ">
         <RxHamburgerMenu />
       </button>
@@ -51,7 +57,7 @@ const MuiSideBar: React.FC = () => {
           </Link>
           <Link
             className="flex items-center mx-2  mt-2 gap-2 hover:text-highlight"
-            href={"/dashboard/create"}
+            href={"/dashboard/tournament/create"}
           >
             <MdOutlineCreate className=" text-2xl hover:text-highlight" />
             Create
@@ -79,7 +85,7 @@ const MuiSideBar: React.FC = () => {
           </Link>
         </div>
       </Drawer>
-    </>
+    </div>
   );
 };
 

@@ -3,36 +3,41 @@ import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
 import Link from "next/link";
+import AntSideBar from "@/components/Dashboard/AntSideBar";
+import { useRouter } from "next/router";
 
 function Navbar() {
   return (
-    <div className="bg-black h-16 flex items-center justify-center ">
-      <div className="text-3xl  flex  justify-between items-center px-4 py-2 gap-8 ">
-        <Link href="/">
-          <div className="hover:text-highlight transition active:text-white">
-            <IoHomeOutline />
-          </div>
-        </Link>
+    <>
+      <AntSideBar />
+      <div className="bg-black h-16 flex items-center justify-center ">
+        <div className="text-3xl  flex  justify-between items-center px-4 py-2 gap-8 ">
+          <Link href="/">
+            <div className="hover:text-highlight transition active:text-white">
+              <IoHomeOutline />
+            </div>
+          </Link>
 
-        <Link href="/ranking">
-          <div className=" transition text-highlight">
-            <FaRankingStar />
-          </div>
-        </Link>
+          <Link href="/ranking">
+            <div className=" transition text-highlight">
+              <FaRankingStar />
+            </div>
+          </Link>
 
-        <Link href="/tournaments">
-          <div className="hover:text-highlight transition active:text-white">
-            <MdOutlineShoppingCart />
-          </div>
-        </Link>
+          <Link href="/tournaments">
+            <div className="hover:text-highlight transition active:text-white">
+              <MdOutlineShoppingCart />
+            </div>
+          </Link>
 
-        <Link href="/leaderboard">
-          <div className="hover:text-highlight transition active:text-white">
-            <GoGraph />
-          </div>
-        </Link>
+          <Link href="/leaderboard">
+            <div className="hover:text-highlight transition active:text-white">
+              <GoGraph />
+            </div>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

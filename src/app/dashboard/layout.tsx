@@ -10,7 +10,7 @@ export default function RootLayout({
     <>
     <hr />
     <div className={`bg-black text-textColor flex`}>
-      <MuiSideBar />
+      {/* <MuiSideBar /> */}
       {children}
     </div>
     </>
