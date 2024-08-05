@@ -1,14 +1,16 @@
+import Button from "@/components/CustomButton";
 import Dropdown from "@/components/Dashboard/Dropdown";
 import React from "react";
 
 function page() {
   return (
-    <div className="flex flex-col items-center justify-center m-auto ">
+    <form className="flex flex-col items-center justify-center m-auto gap-4 text-black placeholder:text-slate-500 ">
       <div className="py-8">
         <div className="relative w-36 h-36">
           <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
             <span className="text-gray-500">Upload</span>
           </div>
+
           <input
             type="file"
             accept="image/*"
@@ -43,7 +45,8 @@ function page() {
           />
         </div>
       </div>
-    </div>
+      <Button text="Create" />
+    </form>
   );
 }
 
