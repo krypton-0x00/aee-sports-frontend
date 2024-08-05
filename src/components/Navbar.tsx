@@ -4,7 +4,6 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
 import Link from "next/link";
 import AntSideBar from "@/components/Dashboard/AntSideBar";
-import { useRouter } from "next/router";
 
 function Navbar() {
   return (

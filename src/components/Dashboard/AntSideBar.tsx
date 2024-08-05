@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import type { DrawerProps, RadioChangeEvent } from "antd";
+import type { DrawerProps } from "antd";
 import { Drawer } from "antd";
 import Link from "next/link";
 import { IoHomeOutline } from "react-icons/io5";
@@ -10,15 +10,14 @@ import { FaDoorOpen } from "react-icons/fa6";
 import { CiSettings } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
-import { PathnameContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
+
 const MuiSideBar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
 
   const router = usePathname();
   console.log(router);
-  // if (!router.isReady) return null; 
+  // if (!router.isReady) return null;
   // Wait for the router to be ready
   const showDrawer = () => {
     setOpen(true);
@@ -28,12 +27,14 @@ const MuiSideBar: React.FC = () => {
     setOpen(false);
   };
 
-
-
-
   return (
-    <div className={`absolute h-16 ${router === "/dashboard" || router.startsWith("/dashboard/") ? "flex" : "hidden"}`}>
-
+    <div
+      className={`absolute h-16 ${
+        router === "/dashboard" || router.startsWith("/dashboard/")
+          ? "flex"
+          : "hidden"
+      }`}
+    >
       <button onClick={showDrawer} className="bg-black p-2 mx-2 text-3xl ">
         <RxHamburgerMenu />
       </button>
