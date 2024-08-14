@@ -45,7 +45,7 @@ function page() {
           />
         </div>
       </div>
-      <Button text="Create" />
+      <Button text="Create" type="submit"/>
     </form>
   );
 }

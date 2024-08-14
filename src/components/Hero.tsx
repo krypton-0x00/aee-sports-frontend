@@ -23,11 +23,12 @@ export function Hero() {
       </p>
       <div className="flex justify-center gap-4">
         <Link href={"/tournaments"}>
-          <Button text="Get Started" />
+          <Button text="Get Started" type="button"/>
         </Link>
         <Link href={"/leaderboard"}>
           <Button
             text="Leaderboard"
+            type="button"
             className="bg-textColor text-slate-900 hover:bg-gray-400"
             hover="grey"
           />
