@@ -10,6 +10,7 @@ const tournamentSchema = new mongoose.Schema({
     type: Number,
     min: 2,
     max: 25,
+    required:true
   },
   banner: {
     type: String,
@@ -21,6 +22,7 @@ const tournamentSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["UPCOMING,ONGOING,COMPLETED"],
+    required:true
   },
 
   teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teams" }],
@@ -28,6 +30,7 @@ const tournamentSchema = new mongoose.Schema({
   visibility: {
     type: String,
     enum: ["HIDDEN", "PUBLISHED"],
+    required:true
   },
   duration: {
     type: Number, //in days
