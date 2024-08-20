@@ -1,3 +1,4 @@
+"use client"
 import { InfiniteMovingCards } from "./ui/infinte-cards";
 interface testimonialTypes {
   quote: string;
@@ -7,21 +8,21 @@ interface testimonialTypes {
 const testimonials: testimonialTypes[] = [
   {
     quote:
-      "Ary bhai yeh kch alg he lag raha hai, ap smj rahai ho na ma ka keh raha hu.",
+      "nice ",
     name: "akash",
     title: "",
   },
   {
-    quote: "Bhai Mko yeh batov kl kis na meri bezti ki thi.",
+    quote: "Really helped me with my tounaments",
     name: "insane",
     title: "me hu insane",
   },
-  {
-    quote: "Krypton bhai yeh dekho na bhasika ma error aa raha ",
-    name: "marco",
-    title: "me hu marco",
-  },
-  { quote: "Arya Bhai Sun Na ", name: "krypton", title: "me hu krypton" },
+  // {
+  //   quote: "Krypton bhai yeh dekho na bhasika ma error aa raha ",
+  //   name: "marco",
+  //   title: "me hu marco",
+  // },
+  // { quote: "Arya Bhai Sun Na ", name: "krypton", title: "me hu krypton" },
 ];
 function Reviews() {
   return (

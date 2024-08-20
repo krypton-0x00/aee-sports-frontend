@@ -1,3 +1,4 @@
+"use client"
 import { IoHomeOutline } from "react-icons/io5";
 import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";

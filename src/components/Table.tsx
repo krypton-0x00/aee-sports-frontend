@@ -1,3 +1,4 @@
+"use client"
 const Table = () => {
   return (
     <table className="border rounded-md mt-12 text-sm">

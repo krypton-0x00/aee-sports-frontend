@@ -21,7 +21,7 @@ const tournamentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["UPCOMING,ONGOING,COMPLETED"],
+    enum: ["UPCOMING","ONGOING","COMPLETED"],
     required:true
   },
 

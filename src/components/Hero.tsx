@@ -1,3 +1,4 @@
+"use client"
 import Button from "./CustomButton";
 import AnimatedShinyText from "./ui/AnimatedShine";
 import AnimatedGridPattern from "./ui/AnimatedGrid";

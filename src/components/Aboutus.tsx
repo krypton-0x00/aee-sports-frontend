@@ -1,10 +1,10 @@
+"use client"
 export function AboutUs() {
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4  ">
       <h1 className="text-3xl font-semibold">About Us</h1>
-      <p className="text-sm w-[80%] text-center sm:w-[600px]">
-        We do something i don&apos;t exactly know about it just go through the
-        website and u you will find something
+      <p className="text-lg w-[80%] text-center sm:w-[600px]">
+      Welcome to Nxs Esports, the premier destination for competitive gaming and esports enthusiasts. we are a community driven by a shared passion for gaming excellence, innovation, and the relentless pursuit of victory.
       </p>
     </div>
   );

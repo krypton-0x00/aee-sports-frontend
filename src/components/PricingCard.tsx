@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { BorderBeam } from "./ui/BorderBeam";
 import Link from "next/link";

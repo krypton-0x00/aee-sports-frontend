@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
