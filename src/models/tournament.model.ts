@@ -1,6 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const tournamentSchema = new mongoose.Schema({
+interface ITournament extends Document {
+  tournamentName: string;
+  slots: number;
+  banner?: string;
+  tournamentLogo: string;
+  status: "UPCOMING" | "ONGOING" | "COMPLETED";
+  teams: mongoose.Types.ObjectId[];
+  visibility: "HIDDEN" | "PUBLISHED";
+  duration?: number; // in days
+}
+
+const tournamentSchema: Schema<ITournament> = new Schema({
   tournamentName: {
     type: String,
     required: true,
@@ -10,7 +21,7 @@ const tournamentSchema = new mongoose.Schema({
     type: Number,
     min: 2,
     max: 25,
-    required:true
+    required: true,
   },
   banner: {
     type: String,
@@ -21,20 +32,19 @@ const tournamentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["UPCOMING","ONGOING","COMPLETED"],
-    required:true
+    enum: ["UPCOMING", "ONGOING", "COMPLETED"],
+    required: true,
   },
-
   teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teams" }],
-
   visibility: {
     type: String,
     enum: ["HIDDEN", "PUBLISHED"],
-    required:true
+    required: true,
   },
   duration: {
-    type: Number, //in days
+    type: Number, // in days
   },
 });
 
-export const Tournament = mongoose.model("Tournament", tournamentSchema);
+export const Tournament: Model<ITournament> =
+  mongoose.models.Tournament || mongoose.model<ITournament>("Tournament", tournamentSchema);

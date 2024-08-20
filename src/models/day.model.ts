@@ -1,6 +1,11 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const daySchema = new mongoose.Schema({
+interface iDaySchema extends Document{
+  day: number,
+  tournamentId: mongoose.Types.ObjectId
+}
+
+const daySchema: Schema<iDaySchema> = new mongoose.Schema({
   day: {
     type: Number,
     required: true,
@@ -12,4 +17,4 @@ const daySchema = new mongoose.Schema({
   },
 });
 
-export const Day = mongoose.model("Day", daySchema);
+export const Day:Model<iDaySchema> = mongoose.models.Day || mongoose.model<iDaySchema>("Day", daySchema);

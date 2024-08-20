@@ -1,6 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const scoreSchema = new mongoose.Schema({
+interface iScoreSchema extends Document{
+  teamId: mongoose.Types.ObjectId,
+  tournamentId: mongoose.Types.ObjectId,
+  dayId ?: mongoose.Types.ObjectId,
+  player1Kills?: number,
+  player2Kills?: number,
+  player3Kills?: number,
+  player4Kills?: number,
+  player5Kills?: number,
+  player6Kills?: number,
+  totalTeamKills?:number,
+  placementPoints?: number,
+  wins?: number,
+  totalPoints?: number
+}
+
+const scoreSchema: Schema<iScoreSchema> = new Schema({
   teamId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Team",
@@ -40,4 +56,4 @@ const scoreSchema = new mongoose.Schema({
   },
 });
 
-export const Score = mongoose.model("Score", scoreSchema);
+export const Score: Model<iScoreSchema> = mongoose.models.Score ||  mongoose.model<iScoreSchema>("Score", scoreSchema);

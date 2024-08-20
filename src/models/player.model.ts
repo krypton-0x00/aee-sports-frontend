@@ -1,6 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const playerSchema = new mongoose.Schema({
+interface iPlayerSchema extends Document{
+  playerName: string,
+  gameId: string,
+  teamId: mongoose.Types.ObjectId,
+  tournamentId: mongoose.Types.ObjectId,
+  kills?: number
+}
+
+const playerSchema:Schema<iPlayerSchema> = new mongoose.Schema({
   playerName: {
     type: String,
     required: true,
@@ -24,4 +32,4 @@ const playerSchema = new mongoose.Schema({
   },
 });
 
-export const Player = mongoose.model("Player", playerSchema);
+export const Player:Model<iPlayerSchema> = mongoose.models.Player || mongoose.model<iPlayerSchema>("Player", playerSchema);

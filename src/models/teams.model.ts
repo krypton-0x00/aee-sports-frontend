@@ -1,6 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const teamSchema = new mongoose.Schema({
+interface iTeamSchema extends Document{
+  teamName: string,
+  tournamentId: mongoose.Types.ObjectId,
+  teamLogo: string,
+  players?: mongoose.Types.ObjectId[]
+}
+
+const teamSchema: Schema<iTeamSchema> = new mongoose.Schema({
   teamName: {
     type: String,
     required: true,
@@ -22,4 +29,4 @@ const teamSchema = new mongoose.Schema({
   ],
 });
 
-export const Team = mongoose.model("Team", teamSchema);
+export const Team:Model<iTeamSchema> = mongoose.models.Team || mongoose.model<iTeamSchema>("Team", teamSchema);
