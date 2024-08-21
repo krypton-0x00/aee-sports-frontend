@@ -3,16 +3,15 @@ import { tourneyValidation } from "@/utils/validations ";
 import { Tournament } from "@/models/tournament.model";
 import { cloudinaryUpload } from "@/utils/cloudnary.util";
 import { NextResponse } from "next/server";
+import { Day } from "@/models/day.model";
 
 type ResponseData = {
   message: string;
 };
 
-
-
 export async function POST(req: Request) {
   const body = await req.formData();
-  
+
   const tournamentName = body.get("tournamentName");
   const slots = body.get("slots");
   const status = body.get("status");
@@ -20,7 +19,7 @@ export async function POST(req: Request) {
   const banner = body.get("banner");
   const visibility = body.get("visibility");
   const duration = body.get("duration");
-  
+
   if (!tournamentName || !slots || !status || !visibility || !duration) {
     return NextResponse.json(
       { message: "message fields all are required" },
@@ -30,23 +29,28 @@ export async function POST(req: Request) {
 
   const slotsNumber = parseInt(slots as string, 10);
   const durationNumber = parseInt(duration as string, 10);
-  
+
   if (isNaN(slotsNumber) || isNaN(durationNumber)) {
-    return NextResponse.json({message: "Failed to parse to number"}, {status: 502})
-  } 
-   
-  
+    return NextResponse.json(
+      { message: "Failed to parse to number" },
+      { status: 502 }
+    );
+  }
+
   const validate = tourneyValidation.safeParse({
     tournamentName,
-    slots:slotsNumber,
+    slots: slotsNumber,
     status,
     visibility,
-    duration:durationNumber,
-  })
+    duration: durationNumber,
+  });
 
-  if (!validate.success){
-    console.log(validate.error.message)
-    return NextResponse.json({message:validate.error.message}, {status: 400})
+  if (!validate.success) {
+    console.log(validate.error.message);
+    return NextResponse.json(
+      { message: validate.error.message },
+      { status: 400 }
+    );
   }
 
   await dbConnect();
@@ -88,30 +92,34 @@ export async function POST(req: Request) {
     }
   }
 
-  const tournament = await Tournament.create({
+  const ceratedTournament = await Tournament.create({
     tournamentName,
-    slots:slotsNumber,
+    slots: slotsNumber,
     banner: bannerUrl,
     tournamentLogo: tournamentLogoUrl,
-    duration:durationNumber,
+    duration: durationNumber,
     status,
     visibility,
   });
 
-  if (!tournament) {
+  if (!ceratedTournament) {
     return NextResponse.json(
       { message: "error making tournament" },
       { status: 400 }
     );
   }
 
-  return NextResponse.json({ message: "success" }, { status: 200 });
+  return NextResponse.json(
+    { body: ceratedTournament._id, message: "success" },
+    { status: 200 }
+  );
 }
 
 export async function GET() {
   await dbConnect();
   const tournaments = await Tournament.find();
-  console.log(tournaments);
-  
-  return NextResponse.json({ message:tournaments }, { status: 200 });
+  return NextResponse.json(
+    { body: tournaments, message: "success" },
+    { status: 200 }
+  );
 }

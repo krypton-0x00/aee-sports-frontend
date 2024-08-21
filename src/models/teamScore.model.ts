@@ -3,7 +3,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 interface iScoreSchema extends Document{
   teamId: mongoose.Types.ObjectId,
   tournamentId: mongoose.Types.ObjectId,
-  dayId ?: mongoose.Types.ObjectId,
+  day : number,
   player1Kills?: number,
   player2Kills?: number,
   player3Kills?: number,
@@ -27,9 +27,9 @@ const scoreSchema: Schema<iScoreSchema> = new Schema({
     ref: "Tournament",
     required: true,
   },
-  dayId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Day",
+  day: {
+    type: Number,
+    required: true,
   },
   player1Kills: { type: Number, default: 0 },
   player2Kills: { type: Number, default: 0 },
@@ -56,4 +56,4 @@ const scoreSchema: Schema<iScoreSchema> = new Schema({
   },
 });
 
-export const Score: Model<iScoreSchema> = mongoose.models.Score ||  mongoose.model<iScoreSchema>("Score", scoreSchema);
+export const TeamScore: Model<iScoreSchema> = mongoose.models.Score ||  mongoose.model<iScoreSchema>("Score", scoreSchema);
