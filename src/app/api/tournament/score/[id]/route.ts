@@ -87,13 +87,15 @@ export async function GET(
   const url = new URL(req.url);
 
   const day = url.searchParams.get("day");
-  console.log(day);
-  
+
+  if(!day){
+    return NextResponse.json({ message: "day is required" }, { status: 400 });
+  }
 
   await dbConnect();
   const tournament = await Score.findOne({
     tournamentId: id,
-    day: day,
+    day: +day,
   });
-  return NextResponse.json({ message: tournament?.toJSON() }, { status: 200 });
+  return NextResponse.json({ Body: tournament?.toJSON() }, { status: 200 });
 }

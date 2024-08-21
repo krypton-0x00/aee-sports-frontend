@@ -1,9 +1,10 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
+import { string } from "zod";
 
 interface iPlayerSchema extends Document{
   playerName: string,
   gameId: string,
-  teamId: mongoose.Types.ObjectId,
+  teamName: string,
   tournamentId: mongoose.Types.ObjectId,
   kills?: number
 }
@@ -17,9 +18,8 @@ const playerSchema:Schema<iPlayerSchema> = new mongoose.Schema({
     type: String,
     required: true,
   },
-  teamId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Team",
+  teamName: {
+    type: String,
     required: true,
   },
   tournamentId: {
