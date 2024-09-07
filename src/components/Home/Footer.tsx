@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
@@ -10,11 +10,11 @@ export function Footer() {
         <div className="flex flex-col">
           <Link href="/">
             <div className="text-2xl  font-bold lg:text-left text-center">
-              NxS Esports
+              AEE Sports
             </div>
           </Link>
           <div className=" text-sm mt-2 lg:mt-0">
-            &copy; {2024} NxS Esports. All rights reserved.
+            &copy; {2024} AEE Sports. All rights reserved.
           </div>
         </div>
         <nav className="flex flex-col items-center gap-4">

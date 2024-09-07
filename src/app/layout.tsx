@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-
+import Navbar from "@/components/Home/Navbar";
+import { Footer } from "@/components/Home/Footer";
 
 export const metadata: Metadata = {
   title: "NxS Esports",
@@ -16,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-black text-textColor dark` }>
+      <body className={`bg-black text-textColor dark`}>
         <Navbar />
         {children}
         <Footer />

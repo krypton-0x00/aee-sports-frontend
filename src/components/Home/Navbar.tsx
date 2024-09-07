@@ -43,7 +43,6 @@ const Navbar = () => {
   return (
     <nav className="bg-black text-white p-4">
       <div className="container mx-auto flex justify-between items-center relative">
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-white z-50"
           onClick={toggleMenu}
@@ -51,11 +50,11 @@ const Navbar = () => {
         >
           {isMenuOpen ? <IoCloseOutline size={24} /> : <HiMenu size={24} />}
         </button>
-        {/* Logo - Hidden on mobile, visible on desktop */}
+
         <Link href="/" className="hidden md:block text-2xl font-bold">
-          Logo
+          AEE SPORTS
         </Link>
-        {/* Desktop Menu */}
+
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
             <Link
@@ -107,7 +106,7 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-      {/* Overlay */}
+
       {isMenuOpen && (
         <div
           className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"

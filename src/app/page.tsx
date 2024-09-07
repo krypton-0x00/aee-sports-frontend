@@ -1,7 +1,7 @@
-
-import { AboutUs } from "@/components/Aboutus";
-import { Hero } from "@/components/Hero";
-import Reviews from "@/components/Reviews";
+import { AboutUs } from "@/components/Home/Aboutus";
+import { Hero } from "@/components/Home/Hero";
+import Reviews from "@/components/Home/Reviews";
+import PricingPage from "@/components/Pricing/pricing";
 
 export async function generateMetadata() {
   return {
@@ -15,6 +15,7 @@ export default function Home() {
       <Hero />
       <Reviews />
       <AboutUs />
+      <PricingPage />
     </>
   );
 }

@@ -1,17 +1,23 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes, ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface ButtonProps {
   text: string;
   className?: string;
   hover?: string;
   hovertext?: string;
-  type: "submit" | "reset" | "button" ;
+  type: "submit" | "reset" | "button";
 }
 
-function Button({ text, className, type, hover, hovertext }: ButtonProps):ReactElement{
+function Button({
+  text,
+  className,
+  type,
+  hover,
+  hovertext,
+}: ButtonProps): ReactElement {
   return (
     <div>
       <button
