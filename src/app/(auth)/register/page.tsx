@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
+import axios from "axios";
+import { SERVER_URI } from "@/constants";
 
 const registerSchema = z
   .object({
@@ -22,16 +24,29 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<z.ZodIssue[]>([]);
+  const [serverError, setServerError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      registerSchema.parse({ email, password, confirmPassword });
-      // Here you would typically handle the registration logic
-      console.log("Registration attempt with:", { email, password });
-      // For now, let's just redirect to the login page
-      router.push("/login");
+      const validatedUser = registerSchema.parse({
+        email,
+        password,
+        confirmPassword,
+      });
+      if (validatedUser) {
+        await axios
+          .post(`${SERVER_URI}auth/register`, validatedUser)
+          .then((res) => {
+            console.log(res);
+            localStorage.setItem("id", res.data.id)
+            
+          })
+          .catch((err) => {
+            setServerError(err.response.data.message)
+          });
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors(error.issues);
@@ -114,6 +129,10 @@ export default function RegisterPage() {
               {getErrorMessage("confirmPassword") && (
                 <p className="mt-1 text-sm text-red-500">
                   {getErrorMessage("confirmPassword")}
+                </p>
+              ) || serverError && (
+                <p className="mt-1 text-sm text-red-500">
+                  {serverError}
                 </p>
               )}
             </div>
