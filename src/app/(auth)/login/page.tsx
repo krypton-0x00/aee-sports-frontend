@@ -7,6 +7,8 @@ import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
 import { SERVER_URI } from "@/constants";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -24,25 +26,43 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const validated = loginSchema.parse({ email, password });
-      if (validated){
+      if (validated) {
         await axios
-        .post(`${SERVER_URI}auth/login`, {
-          email,
-          password,
-        })
-        .then((res) => {
-          console.log(res);
-
-          router.push("/");
-        })
-        .catch((err) => {
-          setServerError(err.message);
-          console.log(err);
-        });
+          .post(
+            `${SERVER_URI}auth/login`,
+            { email, password },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            
+            toast.success("Login successful!", {
+              theme: "dark",
+              style: { background: "#F35B19", color: "#FFFFFF" }
+            });
+            router.push("/");
+          })
+          .catch((err) => {
+            setServerError(err.response?.data?.message || err.message);
+            toast.error(err.response?.data?.message || "An error occurred during login", {
+              theme: "dark",
+              style: { background: "#F35B19", color: "#FFFFFF" }
+            });
+            console.log(err);
+          });
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors(error.issues);
+        toast.error("Please ceck your input and try again", {
+          theme: "dark",
+          style: { background: "#F35B19", color: "#FFFFFF" }
+        });
       }
     }
   };
@@ -104,7 +124,8 @@ export default function LoginPage() {
                 <p className="mt-1 text-sm text-red-500">
                   {getErrorMessage("password")}
                 </p>
-              ) || serverError && (
+              )}
+              {serverError && (
                 <p className="mt-1 text-sm text-red-500">
                   {serverError}
                 </p>
@@ -128,6 +149,18 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
+      <ToastContainer 
+        position="top-right" 
+        autoClose={5000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover 
+        theme="dark"
+      />
     </div>
   );
 }
