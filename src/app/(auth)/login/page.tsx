@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
 import { SERVER_URI } from "@/constants";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,60 +15,61 @@ const loginSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
+type LoginFormData = z.infer<typeof loginSchema>;
+
+const toastConfig = {
+  position: "top-right" as const,
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark" as const,
+  style: { background: "#F35B19", color: "#FFFFFF" }
+};
+
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<z.ZodIssue[]>([]);
-  const [serverError, setServerError] = useState("");
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+  });
   const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const validated = loginSchema.parse({ email, password });
-      if (validated) {
-        await axios
-          .post(
-            `${SERVER_URI}auth/login`,
-            { email, password },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            
-            toast.success("Login successful!", {
-              theme: "dark",
-              style: { background: "#F35B19", color: "#FFFFFF" }
-            });
-            router.push("/");
-          })
-          .catch((err) => {
-            setServerError(err.response?.data?.message || err.message);
-            toast.error(err.response?.data?.message || "An error occurred during login", {
-              theme: "dark",
-              style: { background: "#F35B19", color: "#FFFFFF" }
-            });
-            console.log(err);
-          });
-      }
+      const validatedUser = loginSchema.parse(formData);
+
+      const response = await axios.post(
+        `${SERVER_URI}auth/login`,
+        validatedUser,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      console.log(response);
+      toast.success("Login successful!", toastConfig);
+      router.push("/");
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrors(error.issues);
-        toast.error("Please ceck your input and try again", {
-          theme: "dark",
-          style: { background: "#F35B19", color: "#FFFFFF" }
+        error.issues.forEach((issue) => {
+          toast.error(issue.message, toastConfig);
         });
+      } else if (error instanceof AxiosError) {
+        toast.error(error.response?.data?.message || "An error occurred during login", toastConfig);
       }
+      console.error(error);
     }
-  };
-
-  const getErrorMessage = (field: string) => {
-    return errors.find((error) => error.path[0] === field)?.message;
   };
 
   return (
@@ -96,14 +97,9 @@ export default function LoginPage() {
                 required
                 className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
                 placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
               />
-              {getErrorMessage("email") && (
-                <p className="mt-1 text-sm text-red-500">
-                  {getErrorMessage("email")}
-                </p>
-              )}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -117,19 +113,9 @@ export default function LoginPage() {
                 required
                 className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
               />
-              {getErrorMessage("password") && (
-                <p className="mt-1 text-sm text-red-500">
-                  {getErrorMessage("password")}
-                </p>
-              )}
-              {serverError && (
-                <p className="mt-1 text-sm text-red-500">
-                  {serverError}
-                </p>
-              )}
             </div>
           </div>
 
@@ -160,6 +146,7 @@ export default function LoginPage() {
         draggable 
         pauseOnHover 
         theme="dark"
+        toastStyle={{ background: "#F35B19", color: "#FFFFFF" }}
       />
     </div>
   );

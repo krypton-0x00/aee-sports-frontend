@@ -23,14 +23,24 @@ const registerSchema = z
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
+const toastConfig = {
+  position: "top-right" as const,
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark" as const,
+  style: { background: "#F35B19", color: "#FFFFFF" }
+};
+
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterFormData>({
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState<z.ZodIssue[]>([]);
-  const [serverError, setServerError] = useState<string>("");
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,30 +66,17 @@ export default function RegisterPage() {
 
       console.log(response);
       localStorage.setItem("id", response.data.payload.id);
-      toast.success("Registration successful!", {
-        theme: "dark",
-        style: { background: "#F35B19", color: "#FFFFFF" }
-      });
+      toast.success("Registration successful!", toastConfig);
       router.push("/login");
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrors(error.issues);
-        toast.error("Please check your input and try again", {
-          theme: "dark",
-          style: { background: "#F35B19", color: "#FFFFFF" }
+        error.issues.forEach((issue) => {
+          toast.error(issue.message, toastConfig);
         });
       } else if (error instanceof AxiosError) {
-        setServerError(error.response?.data?.message || "An error occurred during registration");
-        toast.error(error.response?.data?.message || "An error occurred during registration", {
-          theme: "dark",
-          style: { background: "#F35B19", color: "#FFFFFF" }
-        });
+        toast.error(error.response?.data?.message || "An error occurred during registration", toastConfig);
       }
     }
-  };
-
-  const getErrorMessage = (field: keyof RegisterFormData) => {
-    return errors.find((error) => error.path[0] === field)?.message;
   };
 
   return (
@@ -108,11 +105,6 @@ export default function RegisterPage() {
                 value={formData.email}
                 onChange={handleChange}
               />
-              {getErrorMessage("email") && (
-                <p className="mt-1 text-sm text-red-500">
-                  {getErrorMessage("email")}
-                </p>
-              )}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -129,11 +121,6 @@ export default function RegisterPage() {
                 value={formData.password}
                 onChange={handleChange}
               />
-              {getErrorMessage("password") && (
-                <p className="mt-1 text-sm text-red-500">
-                  {getErrorMessage("password")}
-                </p>
-              )}
             </div>
             <div>
               <label htmlFor="confirm-password" className="sr-only">
@@ -150,16 +137,6 @@ export default function RegisterPage() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
-              {getErrorMessage("confirmPassword") && (
-                <p className="mt-1 text-sm text-red-500">
-                  {getErrorMessage("confirmPassword")}
-                </p>
-              )}
-              {serverError && (
-                <p className="mt-1 text-sm text-red-500">
-                  {serverError}
-                </p>
-              )}
             </div>
           </div>
 

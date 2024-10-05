@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Home/Navbar";
 import { Footer } from "@/components/Home/Footer";
+  
 
 export const metadata: Metadata = {
-  title: "NxS Esports",
-  description: "KGC Esport ORG",
+  title: "Aee sports",
+  description: "Let build something great",
 };
 
 export default function RootLayout({
@@ -13,12 +14,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+ 
   return (
     <html lang="en">
       <body className={`bg-black text-textColor dark`}>
-        <Navbar />
-        {children}
-        <Footer />
+         
+   
+          <Navbar />
+          {children}
+          <Footer />
+    
+         
       </body>
     </html>
   );
