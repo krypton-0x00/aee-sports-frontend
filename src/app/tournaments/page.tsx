@@ -7,6 +7,7 @@ import Image from "next/image";
 import { SERVER_URI } from "@/constants";
 import { TournamentType } from "@/types/FetchTournamentData";
 import useFetch from "@/hooks/useFetchData";
+import { SkeletonCard } from "@/components/atomic/Loading";
 
  
 
@@ -27,7 +28,11 @@ const OngoingTournaments: React.FC = () => {
 
   
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="flex md:flex-row flex-col justify-center items-center h-screen gap-5">
+      <SkeletonCard  />
+      <SkeletonCard  />
+      <SkeletonCard  />
+    </div>;
   }
 
   if (error) {
