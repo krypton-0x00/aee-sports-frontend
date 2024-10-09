@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Home/Navbar";
 import { Footer } from "@/components/Home/Footer";
+import RecoilContextProvider from "@/Recoil/RecoilContextProvider";
   
 
 export const metadata: Metadata = {
@@ -19,10 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`bg-black text-textColor dark`}>
          
-   
-          <Navbar />
-          {children}
-          <Footer />
+      <RecoilContextProvider>
+           <Navbar />
+           {children}
+           <Footer />
+      </RecoilContextProvider>
     
          
       </body>
