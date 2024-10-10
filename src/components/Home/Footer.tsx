@@ -5,7 +5,7 @@ import { FaYoutube } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 export function Footer() {
   return (
-    <footer className="py-8 mt-40 border-t-[1px]">
+    <footer className="py-8  border-t-[1px]">
       <div className="container px-4 mx-auto text-center  flex flex-col lg:flex-row justify-between">
         <div className="flex flex-col">
           <Link href="/">

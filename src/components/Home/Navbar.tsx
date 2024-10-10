@@ -2,13 +2,16 @@
 import { useEffect } from "react";
 import { HiMenu } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useState } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
+import { Button } from "../ui/button";
+
+const userId = localStorage.getItem("userId");
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +38,11 @@ const Navbar = () => {
 
   const navItems = [
     { href: "/", icon: IoHomeOutline, label: "Home" },
-    { href: "/ranking", icon: FaRankingStar, label: "Ranking" },
+    {
+      href: "/create-tournament",
+      icon: FaRankingStar,
+      label: "Create Tournament",
+    },
     { href: "/tournaments", icon: MdOutlineShoppingCart, label: "Tournaments" },
     { href: "/leaderboard", icon: GoGraph, label: "Leaderboard" },
   ];
@@ -72,7 +79,20 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
+        {userId ? (
+          <Avatar>
+            <AvatarImage src="" />
+            <AvatarFallback>SH</AvatarFallback>
+          </Avatar>
+        ) : (
+          <Link href="/login">
+            <Button variant="outline" className="border-highlight text-white">
+              Login
+            </Button>
+          </Link>
+        )}
       </div>
+
       {/* Mobile Sidebar */}
       <div
         className={`md:hidden fixed top-0 left-0 h-full w-64 bg-black z-50 transform transition-transform duration-300 ease-in-out ${
@@ -82,7 +102,7 @@ const Navbar = () => {
         {/* Logo in sidebar for mobile */}
         <div className="p-4 border-b border-gray-700">
           <Link href="/" className="text-2xl font-bold" onClick={closeMenu}>
-            Logo
+            AEE SPORTS
           </Link>
         </div>
         <div className="pt-4 px-4">

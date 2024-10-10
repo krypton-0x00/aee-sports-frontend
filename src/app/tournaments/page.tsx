@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { SERVER_URI } from "@/constants";
-import { TournamentType } from "@/types/FetchTournamentData";
+import { TournamentType } from "@/types/tournament.type";
 import useFetch from "@/hooks/useFetchData";
 import { SkeletonCard } from "@/components/atomic/Loading";
 import { useRecoilState } from "recoil";

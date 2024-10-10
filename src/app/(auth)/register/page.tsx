@@ -7,8 +7,8 @@ import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
 import axios, { AxiosError } from "axios";
 import { SERVER_URI } from "@/constants";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const registerSchema = z
   .object({
@@ -32,7 +32,7 @@ const toastConfig = {
   draggable: true,
   progress: undefined,
   theme: "dark" as const,
-  style: { background: "#F35B19", color: "#FFFFFF" }
+  style: { background: "#F35B19", color: "#FFFFFF" },
 };
 
 export default function RegisterPage() {
@@ -58,14 +58,18 @@ export default function RegisterPage() {
         validatedUser,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           withCredentials: true,
         }
       );
 
       console.log(response);
-      localStorage.setItem("id", response.data.payload.id);
+      localStorage.setItem("userId", JSON.stringify(response.data.payload.id));
+      localStorage.setItem(
+        "email",
+        JSON.stringify(response.data.payload.email)
+      );
       toast.success("Registration successful!", toastConfig);
       router.push("/login");
     } catch (error) {
@@ -74,7 +78,11 @@ export default function RegisterPage() {
           toast.error(issue.message, toastConfig);
         });
       } else if (error instanceof AxiosError) {
-        toast.error(error.response?.data?.message || "An error occurred during registration", toastConfig);
+        toast.error(
+          error.response?.data?.message ||
+            "An error occurred during registration",
+          toastConfig
+        );
       }
     }
   };
@@ -156,16 +164,16 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
-      <ToastContainer 
-        position="top-right" 
-        autoClose={5000} 
-        hideProgressBar={false} 
-        newestOnTop={false} 
-        closeOnClick 
-        rtl={false} 
-        pauseOnFocusLoss 
-        draggable 
-        pauseOnHover 
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
         theme="dark"
         toastStyle={{ background: "#F35B19", color: "#FFFFFF" }}
       />
