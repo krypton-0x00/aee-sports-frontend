@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
 import axios, { AxiosError } from "axios";
-import { SERVER_URI } from "@/constants.js";
+import { SERVER_URI } from "@/constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const registerSchema = z
+const resetSchema = z
   .object({
-    email: z.string().email("Invalid email address"),
     password: z.string().min(8, "Password must be at least 8 characters long"),
     confirmPassword: z.string(),
   })
@@ -21,7 +18,7 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type ResetFormData = z.infer<typeof resetSchema>;
 
 const toastConfig = {
   position: "top-right" as const,
@@ -35,9 +32,8 @@ const toastConfig = {
   style: { background: "#F35B19", color: "#FFFFFF" },
 };
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState<RegisterFormData>({
-    email: "",
+export default function ResetPasswordPage() {
+  const [formData, setFormData] = useState<ResetFormData>({
     password: "",
     confirmPassword: "",
   });
@@ -51,11 +47,15 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const validatedUser = registerSchema.parse(formData);
+      const validatedData = resetSchema.parse(formData);
+
+      // Extract token from URL
+      const token = window.location.pathname.split("/").pop();
+      console.log(token);
 
       const response = await axios.post(
-        `${SERVER_URI}auth/register`,
-        validatedUser,
+        `${SERVER_URI}auth/reset-password/${token}`,
+        validatedData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -64,11 +64,7 @@ export default function RegisterPage() {
         }
       );
 
-      console.log(response);
-
-      localStorage.setItem("user", JSON.stringify(response.data.payload));
-
-      toast.success("Registration successful!", toastConfig);
+      toast.success("Password reset successfully!", toastConfig);
       router.push("/login");
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -78,7 +74,7 @@ export default function RegisterPage() {
       } else if (error instanceof AxiosError) {
         toast.error(
           error.response?.data?.message ||
-            "An error occurred during registration",
+            "An error occurred while resetting your password",
           toastConfig
         );
       }
@@ -89,32 +85,14 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center bg-black">
       <div className="w-full max-w-md space-y-8 rounded-xl bg-black p-10 shadow-2xl border border-gray-800">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-bold text-white">
-            Join AEE SPORTS
-          </h2>
-          <p className="mt-2 text-sm text-gray-400">Create your account</p>
+          <h2 className="mt-6 text-3xl font-bold text-white">Reset Password</h2>
+          <p className="mt-2 text-sm text-gray-400">Enter your new password</p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4 rounded-md shadow-sm">
             <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
               <label htmlFor="password" className="sr-only">
-                Password
+                New Password
               </label>
               <input
                 id="password"
@@ -123,14 +101,14 @@ export default function RegisterPage() {
                 autoComplete="new-password"
                 required
                 className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
-                placeholder="Password"
+                placeholder="New Password"
                 value={formData.password}
                 onChange={handleChange}
               />
             </div>
             <div>
               <label htmlFor="confirm-password" className="sr-only">
-                Confirm Password
+                Confirm New Password
               </label>
               <input
                 id="confirm-password"
@@ -139,42 +117,23 @@ export default function RegisterPage() {
                 autoComplete="new-password"
                 required
                 className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
-                placeholder="Confirm Password"
+                placeholder="Confirm New Password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
               />
             </div>
           </div>
-
           <div>
-            <Button text="Sign up" type="submit" className="w-full" />
+            <button
+              type="submit"
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-highlight py-2 px-4 text-sm font-medium text-white hover:bg-highlight-dark focus:outline-none focus:ring-2 focus:ring-highlight focus:ring-offset-2"
+            >
+              Reset Password
+            </button>
           </div>
         </form>
-        <div className="text-center">
-          <p className="mt-2 text-sm text-gray-400">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="font-medium text-highlight hover:text-highlight-dark"
-            >
-              Sign in
-            </Link>
-          </p>
-        </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        toastStyle={{ background: "#F35B19", color: "#FFFFFF" }}
-      />
+      <ToastContainer />
     </div>
   );
 }

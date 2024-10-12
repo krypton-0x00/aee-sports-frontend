@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/atomic/CustomButton";
 import { z } from "zod";
-import { SERVER_URI } from "@/constants";
+import { SERVER_URI } from "@/constants.js";
 import axios, { AxiosError } from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -59,11 +59,7 @@ export default function LoginPage() {
 
       console.log(response);
       toast.success("Login successful!", toastConfig);
-      localStorage.setItem("userId", JSON.stringify(response.data.payload.id));
-      localStorage.setItem(
-        "email",
-        JSON.stringify(response.data.payload.email)
-      );
+      localStorage.setItem("user", JSON.stringify(response.data.payload));
 
       router.push("/");
     } catch (error) {

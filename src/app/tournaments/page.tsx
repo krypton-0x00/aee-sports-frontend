@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { SERVER_URI } from "@/constants";
+import { SERVER_URI } from "@/constants.js";
 import { TournamentType } from "@/types/tournament.type";
 import useFetch from "@/hooks/useFetchData";
 import { SkeletonCard } from "@/components/atomic/Loading";
@@ -20,9 +20,12 @@ interface Data {
 
 const OngoingTournaments: React.FC = () => {
   const [tournaments, setTournaments] = useRecoilState(tournamentAtom);
-  const [selectedTournament, setSelectedTournament] = useState<TournamentType | null>(null);
+  const [selectedTournament, setSelectedTournament] =
+    useState<TournamentType | null>(null);
 
-  const { data, isLoading, error } = useFetch(`${SERVER_URI}tournament/get-tournaments`);
+  const { data, isLoading, error } = useFetch(
+    `${SERVER_URI}tournament/get-tournaments`
+  );
 
   useEffect(() => {
     if (data) {
@@ -31,11 +34,13 @@ const OngoingTournaments: React.FC = () => {
   }, [data, setTournaments]);
 
   if (isLoading) {
-    return <div className="flex md:flex-row flex-col justify-center items-center h-screen gap-5">
-      <SkeletonCard  />
-      <SkeletonCard  />
-      <SkeletonCard  />
-    </div>;
+    return (
+      <div className="flex md:flex-row flex-col justify-center items-center h-screen gap-5">
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+    );
   }
 
   if (error) {
@@ -55,13 +60,13 @@ const OngoingTournaments: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6">Ongoing Esports Tournaments</h1>
       {selectedTournament ? (
         <div>
-          <Button 
+          <Button
             onClick={handleCloseDetails}
             className="mb-4 bg-highlight text-gray-800 hover:bg-orange-500"
           >
-            <FaArrowLeft/>
+            <FaArrowLeft />
           </Button>
-         
+
           <Details tournament={selectedTournament} />
         </div>
       ) : (
@@ -78,11 +83,15 @@ const OngoingTournaments: React.FC = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold">{tournament.name}</CardTitle>
+                  <CardTitle className="text-2xl font-bold">
+                    {tournament.name}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 bg-gradient-to-br from-gray-900 to-gray-800">
                   <div className="space-y-4">
-                    <p className="text-xl font-bold text-highlight">{tournament.game}</p>
+                    <p className="text-xl font-bold text-highlight">
+                      {tournament.game}
+                    </p>
                     <div className="flex justify-between items-center text-gray-300">
                       <span className="flex items-center">
                         <FaUsers className="mr-2" />
@@ -93,11 +102,17 @@ const OngoingTournaments: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex justify-between text-sm text-gray-400">
-                      <p>Starts: {new Date(tournament.startDate).toLocaleDateString()}</p>
-                      <p>Ends: {new Date(tournament.endDate).toLocaleDateString()}</p>
+                      <p>
+                        Starts:{" "}
+                        {new Date(tournament.startDate).toLocaleDateString()}
+                      </p>
+                      <p>
+                        Ends:{" "}
+                        {new Date(tournament.endDate).toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
-                  <Button 
+                  <Button
                     className="w-full mt-6 text-white bg-highlight hover:bg-highlight/90 transition-all duration-300 transform hover:scale-105"
                     onClick={() => handleViewDetails(tournament)}
                   >
