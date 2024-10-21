@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const registerSchema = z
   .object({
+    name: z.string().min(2, "Name must be at least 2 characters long"),
     email: z.string().email("Invalid email address"),
     password: z.string().min(8, "Password must be at least 8 characters long"),
     confirmPassword: z.string(),
@@ -37,6 +38,7 @@ const toastConfig = {
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState<RegisterFormData>({
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -96,6 +98,22 @@ export default function RegisterPage() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4 rounded-md shadow-sm">
+            <div>
+              <label htmlFor="name" className="sr-only">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="relative block w-full appearance-none rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-highlight focus:outline-none focus:ring-highlight sm:text-sm"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
@@ -178,3 +196,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

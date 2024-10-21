@@ -1,67 +1,24 @@
 "use client";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaRankingStar } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoGraph } from "react-icons/go";
-import { Button } from "../ui/button";
-import axios from "axios";
-import { SERVER_URI } from "@/constants";
-import { User } from "@/types/user.type.js";
-import ProfileIcon from "../atomic/profileIcon";
+// import { User } from "@/types/user.type.js";
+ 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [user, setUser] = useState<User | null>(null);
 
-  const data = localStorage.getItem("user");
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const user = data ? JSON.parse(data) : null;
-
-        if (!user) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        const response = await axios.post(
-          `${SERVER_URI}auth/check-auth`,
-          { id: user.id },
-          {
-            withCredentials: true,
-          }
-        );
-
-        if (response.data.success) {
-          setIsAuthenticated(true);
-          setUser(response.data.data);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-      }
-    };
-
-    checkAuth();
-
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [data]);
-
+  // const data = localStorage.getItem("user");
+  // const data = getFromLocalStorage('user',null);
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -113,15 +70,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        {isAuthenticated && user ? (
-          <ProfileIcon text={user.name.charAt(0) || ""} />
-        ) : (
-          <Link href="/login">
-            <Button variant="outline" className="border-highlight text-white">
-              Login
-            </Button>
-          </Link>
-        )}
+         
       </div>
 
       {/* Mobile Sidebar */}
