@@ -1,23 +1,24 @@
 "use client";
 
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
-import { CalendarIcon } from "@radix-ui/react-icons"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-import { formSchema } from '@/types/createTournament.type'
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { formSchema } from '@/types/createTournament.type';
+import axios from 'axios';
+import { SERVER_URI } from '@/constants';
 
-
-type FormValues = z.infer<typeof formSchema>
+type FormValues = z.infer<typeof formSchema>;
 
 const CreateTournament: React.FC = () => {
   const form = useForm<FormValues>({
@@ -28,26 +29,39 @@ const CreateTournament: React.FC = () => {
       game: 'VALORANT',
       slots: 0,
       unit: 0,
+      status: 'UPCOMING',
       prizePool: 0,
       registrationFee: 0,
       visibility: 'PUBLIC',
       startDate: new Date(),
       endDate: new Date(),
-      prizePoolDistribution: {
-        first: 0,
-        second: 0,
-        third: 0,
-        fourth: 0,
-        mvp: 0,
-        pwmk: 0,
-      },
+      // prizePoolDistribution: {
+      //   first: 0,
+      //   second: 0,
+      //   third: 0,
+      //   fourth: 0,
+      //   mvp: 0,
+      //   pwmk: 0,
+      // },
     },
-  })
+  });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
-    // Here you would send the data to your backend to create the tournament
-  }
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const user = localStorage.getItem("user");
+      const uId = JSON.parse(user|| '').id;
+      console.log(uId)
+      console.log({...data, userId: uId})
+      const response = await axios.post(
+        `${SERVER_URI}tournament/create-tournament`,
+        {...data, userId: uId},
+        { withCredentials: true }
+      );
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -260,7 +274,7 @@ const CreateTournament: React.FC = () => {
                 </FormItem>
               )}
             />
-            <div>
+            {/* <div>
               <h3 className="text-lg font-semibold mb-4">Prize Pool Distribution</h3>
               <div className="grid grid-cols-2 gap-4">
                 {['first', 'second', 'third', 'fourth', 'mvp', 'pwmk'].map((place) => (
@@ -285,13 +299,14 @@ const CreateTournament: React.FC = () => {
                   />
                 ))}
               </div>
-            </div>
+            </div> */}
             <Button type="submit">Create Tournament</Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default CreateTournament
+export default CreateTournament;
+
